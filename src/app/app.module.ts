@@ -5,11 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MyButtonComponent } from './my-button/my-button.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MyTableComponent } from './my-table/my-table.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MyButtonComponent
+    MyButtonComponent,
+    MyTableComponent
   ],
   imports: [
     BrowserModule,
