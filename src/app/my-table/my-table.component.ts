@@ -13,12 +13,37 @@ export class MyTableComponent implements OnInit {
 
   @Input() tableConfig!:MyTableConfig;
   @Input() data!: any[];
-  dataOriginal!:any[];
   icon:string = '';
   searchText="";
   searchHeader?:string;
+  currentPage = 0;
+  itemPerPage = 0;
 
-  @Output() dataEventMitter = new EventEmitter<any[]>();
+  constructor() {
+  }
+
+  ngOnInit(): void {
+    this.itemPerPage = this.tableConfig.paginationTable.itemPerPage;
+  }
+
+
+  cambioValore(event:any, isSelect:boolean){
+    if(isSelect){
+      this.searchHeader=event.target.value;
+
+    }
+    else{
+      this.searchText=event.target.value;
+    }
+
+  }
+
+  changeItemPerPage(event:any){
+    this.itemPerPage = event.target.value;
+    this.currentPage = 0;
+
+  }
+
 
   changeOrder(order:string){
     if(this.tableConfig.order.orderType=='desc' || !this.tableConfig.order.orderType){
@@ -36,6 +61,33 @@ export class MyTableComponent implements OnInit {
 
   }
 
+  pageNavigation(add:boolean){
+    if(add==false){
+      if(this.currentPage>0){
+        this.currentPage-=1;
+      }
+    }
+    else{
+      this.currentPage+=1;
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //Vari tipi di Search
+  // @Output() dataEventMitter = new EventEmitter<any[]>();
   // searchSimple(term:string){
   //   if(term || term != ""){
   //     term = term.toLocaleLowerCase();
@@ -56,28 +108,4 @@ export class MyTableComponent implements OnInit {
   //     this.data = this.dataOriginal;
   //   }
   // }
-
-
-
-
-  constructor() {
-
-  }
-
-  ngOnInit(): void {
-    this.dataOriginal = this.data;
-  }
-
-
-  cambioValore(event:any, isSelect:boolean){
-    if(isSelect){
-      this.searchHeader=event.target.value;
-
-    }
-    else{
-      this.searchText=event.target.value;
-    }
-
-  }
-
 }

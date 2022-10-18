@@ -18,10 +18,17 @@ export class AppComponent {
       {'key':'cf'       , 'label':'Codice Fiscale'},
       {'key':'date'       , 'label':'Data di nascita'}
     ],
-    order: {'orderType':'', 'defaultColumn':''}
+    order: {'orderType':'', 'defaultColumn':''},
+    paginationTable: {itemPerPage: 2, itemPerPageOption:[5,10,15]}
   }
 
   data:Utente[] = [
+    {'firstname':'Franco', 'lastname':'Rossi', 'cf':'ckhancjkajkcx', 'date':new Date('2001-05-15')},
+    {'firstname':'Lorenzo', 'lastname':'Biraghi', 'cf':'ojahsbubcjka', 'date':new Date('2002-03-13')},
+    {'firstname':'Guido', 'lastname':'Verdi', 'cf':'nciosmckamocna', 'date':new Date('1999-01-25')},
+    {'firstname':'Franco', 'lastname':'Rossi', 'cf':'ckhancjkajkcx', 'date':new Date('2001-05-15')},
+    {'firstname':'Lorenzo', 'lastname':'Biraghi', 'cf':'ojahsbubcjka', 'date':new Date('2002-03-13')},
+    {'firstname':'Guido', 'lastname':'Verdi', 'cf':'nciosmckamocna', 'date':new Date('1999-01-25')},
     {'firstname':'Franco', 'lastname':'Rossi', 'cf':'ckhancjkajkcx', 'date':new Date('2001-05-15')},
     {'firstname':'Lorenzo', 'lastname':'Biraghi', 'cf':'ojahsbubcjka', 'date':new Date('2002-03-13')},
     {'firstname':'Guido', 'lastname':'Verdi', 'cf':'nciosmckamocna', 'date':new Date('1999-01-25')},

@@ -10,13 +10,20 @@
 
           <div class="col-sm-3">
             <select class="form-select form-select" (change)="cambioValore($event, true)">
-              <option selected value="">Select the header to search</option>
+              <option selected value="">Select header</option>
               <option *ngFor="let header of tableConfig.headers" value="{{header.key}}">{{header.label}}</option>
             </select>
           </div>
 
-          <div class="col-sm-8">
+          <div class="col-sm-7">
             <input (keyup)="cambioValore($event, false)" type="text" class="form-control"/>
+          </div>
+
+          <div class="col-sm-2">
+            <select class="form-select form-select" (change)="changeItemPerPage($event)">
+              <option selected value={{tableConfig.paginationTable.itemPerPage}}>{{tableConfig.paginationTable.itemPerPage}}</option>
+              <option *ngFor="let PageItem of tableConfig.paginationTable.itemPerPageOption" value="{{PageItem}}">{{PageItem}}</option>
+            </select>
           </div>
 
         </div>
@@ -36,12 +43,16 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor=" let dataRow of data | searchFilter: searchHeader: searchText">
+          <tr *ngFor=" let dataRow of data | searchFilter: searchHeader: searchText | pagination: currentPage: itemPerPage">
             <td *ngFor="let header of tableConfig.headers">
               {{dataRow[header.key]}}</td>
           </tr>
         </tbody>
       </table>
+      <div class="btn-group">
+        <button class="btn btn-primary" (click)="pageNavigation(false)"><i class="fa fa-chevron-left"></i></button>
+        <button class="btn btn-primary" (click)="pageNavigation(true)"><i class="fa fa-chevron-right"></i></button>
+      </div>
     </div>
 
 

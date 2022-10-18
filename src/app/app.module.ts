@@ -8,13 +8,15 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MyTableComponent } from './my-table/my-table.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SearchFilterPipe } from './search-filter.pipe';
+import { PaginationPipe } from './pagination.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     MyButtonComponent,
     MyTableComponent,
-    SearchFilterPipe
+    SearchFilterPipe,
+    PaginationPipe
   ],
   imports: [
     BrowserModule,
