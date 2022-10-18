@@ -6,17 +6,21 @@ import { AppComponent } from './app.component';
 import { MyButtonComponent } from './my-button/my-button.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MyTableComponent } from './my-table/my-table.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SearchFilterPipe } from './search-filter.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     MyButtonComponent,
-    MyTableComponent
+    MyTableComponent,
+    SearchFilterPipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
