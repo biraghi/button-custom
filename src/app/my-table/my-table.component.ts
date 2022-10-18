@@ -17,6 +17,7 @@ export class MyTableComponent implements OnInit {
   searchText="";
   searchHeader?:string;
   currentPage = 0;
+  maxPage=0;
   itemPerPage = 0;
 
   constructor() {
@@ -24,6 +25,7 @@ export class MyTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.itemPerPage = this.tableConfig.paginationTable.itemPerPage;
+    this.maxPage = (((this.data.length) / this.itemPerPage) | 0) + 1;
   }
 
 
@@ -40,6 +42,7 @@ export class MyTableComponent implements OnInit {
 
   changeItemPerPage(event:any){
     this.itemPerPage = event.target.value;
+    this.maxPage = (((this.data.length) / this.itemPerPage) | 0) + 1
     this.currentPage = 0;
 
   }
@@ -68,9 +71,13 @@ export class MyTableComponent implements OnInit {
       }
     }
     else{
-      this.currentPage+=1;
+      if(this.currentPage<(this.maxPage-1)){
+        this.currentPage+=1;
+      }
+
     }
   }
+
 
 
 
