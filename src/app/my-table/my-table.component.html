@@ -5,22 +5,22 @@
 
     <div class="row input-group col-3">
       <label for="search-box">Table Search</label>
-      <form [formGroup]="searchForm" id="search-box" class="from-group ">
+
         <div class="input-group">
 
           <div class="col-sm-3">
-            <select class="form-select form-select" formControlName="key">
+            <select class="form-select form-select" (change)="cambioValore($event, true)">
               <option selected value="">Select the header to search</option>
               <option *ngFor="let header of tableConfig.headers" value="{{header.key}}">{{header.label}}</option>
             </select>
           </div>
 
           <div class="col-sm-8">
-            <input formControlName="search" class="form-control"/>
+            <input (keyup)="cambioValore($event, false)" type="text" class="form-control"/>
           </div>
 
         </div>
-      </form>
+
     </div>
 
 
@@ -36,7 +36,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor=" let dataRow of data | searchFilter: searchForm.value.key: searchForm.value.search">
+          <tr *ngFor=" let dataRow of data | searchFilter: searchHeader: searchText">
             <td *ngFor="let header of tableConfig.headers">
               {{dataRow[header.key]}}</td>
           </tr>

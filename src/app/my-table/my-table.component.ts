@@ -15,7 +15,8 @@ export class MyTableComponent implements OnInit {
   @Input() data!: any[];
   dataOriginal!:any[];
   icon:string = '';
-  searchForm;
+  searchText="";
+  searchHeader?:string;
 
   @Output() dataEventMitter = new EventEmitter<any[]>();
 
@@ -56,14 +57,27 @@ export class MyTableComponent implements OnInit {
   //   }
   // }
 
-  constructor(private formBuilder: FormBuilder) {
-    this.searchForm = this.formBuilder.group(
-      {search: '', key:''}
-      );
+
+
+
+  constructor() {
+
   }
 
   ngOnInit(): void {
     this.dataOriginal = this.data;
+  }
+
+
+  cambioValore(event:any, isSelect:boolean){
+    if(isSelect){
+      this.searchHeader=event.target.value;
+
+    }
+    else{
+      this.searchText=event.target.value;
+    }
+
   }
 
 }
