@@ -1,18 +1,20 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { MyTableConfig } from '../MyTableConfig';
-import { orderBy, find } from "lodash";
-import { Output, EventEmitter } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { MyTableConfig } from '../model/MyTableConfig';
+import { orderBy} from "lodash";
+import { ActionButton } from '../model/ActionButton';
 
 @Component({
   selector: 'app-my-table',
   templateUrl: './my-table.component.html',
-  styleUrls: ['./my-table.component.css']
+  styleUrls: ['./my-table.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MyTableComponent implements OnInit {
+export class MyTableComponent implements OnInit, OnChanges {
 
   @Input() tableConfig!:MyTableConfig;
   @Input() data!: any[];
+  @Output() actionChange: EventEmitter<ActionButton> = new EventEmitter();
+
   icon:string = '';
   searchText="";
   searchHeader?:string;
@@ -23,10 +25,17 @@ export class MyTableComponent implements OnInit {
   constructor() {
   }
 
+  ngOnChanges(changes: SimpleChanges){
+    this.setMaxPage();
+    console.log(changes);
+  }
+
   ngOnInit(): void {
     this.itemPerPage = this.tableConfig.paginationTable.itemPerPage;
-    this.maxPage = (((this.data.length) / this.itemPerPage) | 0) + 1;
+    this.setMaxPage();
   }
+
+
 
 
   cambioValore(event:any, isSelect:boolean){
@@ -42,7 +51,7 @@ export class MyTableComponent implements OnInit {
 
   changeItemPerPage(event:any){
     this.itemPerPage = event.target.value;
-    this.maxPage = (((this.data.length) / this.itemPerPage) | 0) + 1
+    this.setMaxPage();
     this.currentPage = 0;
 
   }
@@ -71,27 +80,26 @@ export class MyTableComponent implements OnInit {
       }
     }
     else{
-      if(this.currentPage<(this.maxPage-1)){
+      if(this.currentPage<(this.maxPage)){
         this.currentPage+=1;
       }
 
     }
   }
 
+  setMaxPage(){
+    if(this.data.length>this.itemPerPage){
+      this.maxPage = ((this.data.length) / this.itemPerPage) | 0;
+    }
+    else{
+      this.maxPage = 0;
+    }
 
+  }
 
-
-
-
-
-
-
-
-
-
-
-
-
+  actionButton(item:any, action:string){
+    this.actionChange.emit({action, item});
+  }
 
   //Vari tipi di Search
   // @Output() dataEventMitter = new EventEmitter<any[]>();
