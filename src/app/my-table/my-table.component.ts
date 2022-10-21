@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { MyTableConfig } from '../model/MyTableConfig';
+import { MyTableConfig } from './MyTableConfig';
 import { orderBy} from "lodash";
-import { ActionButton } from '../model/ActionButton';
+import { ActionButton } from './ActionButton';
+import { MyTableActionEnum } from './MyTableActionEnum';
 
 @Component({
   selector: 'app-my-table',
@@ -21,6 +22,7 @@ export class MyTableComponent implements OnInit, OnChanges {
   currentPage = 0;
   maxPage=0;
   itemPerPage = 0;
+  dataModify:boolean = false;
 
   constructor() {
   }

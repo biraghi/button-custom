@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
-import { ActionButton } from './model/ActionButton';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { ActionButton } from './my-table/ActionButton';
 import { MyButtonConfig } from './button-config';
-import { MyTableActionEnum } from './model/MyTableActionEnum';
-import { MyTableConfig } from './model/MyTableConfig';
+import { MyTableActionEnum } from './my-table/MyTableActionEnum';
+import { MyTableConfig } from './my-table/MyTableConfig';
 import { Utente } from './model/Utente';
 @Component({
   selector: 'app-root',
@@ -10,8 +10,13 @@ import { Utente } from './model/Utente';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  @Output() addUpdateData: EventEmitter<ActionButton> = new EventEmitter();
+
+
+
   button = new MyButtonConfig("btn-primary", "Bottone Custom User", "fa-user");
   buttonC = new MyButtonConfig("btn-success", "Bottone Custom Caffe", "fa-coffee");
+
 
   header:MyTableConfig = {
     headers: [
@@ -31,12 +36,19 @@ export class AppComponent {
     {'firstname':'Guido', 'lastname':'Verdi', 'cf':'nciosmckamocna', 'date':new Date('1999-01-25')}
   ]
 
-  updateData(action:ActionButton):void{
+  updateData(action:ActionButton):any{
     switch(action.action){
       case MyTableActionEnum.DELETE:{
-       this.data = this.data.filter(obj=> obj.cf != action.item.cf);
+        this.data = this.data.filter(obj=>obj!=action.item);
+      }
+      case MyTableActionEnum.NEW_ROW:{
+        return action.item;
+      }
+      case MyTableActionEnum.EDIT:{
+        return null;
       }
     }
+    return null;
   }
 
 }
